@@ -1,0 +1,2318 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Order - SMM Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-50: #f0f9ff;
+            --primary-100: #e0f2fe;
+            --primary-500: #06b6d4;
+            --primary-600: #0891b2;
+            --primary-700: #0e7490;
+
+            --purple-500: #8b5cf6;
+            --purple-600: #7c3aed;
+            --purple-700: #6d28d9;
+
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-300: #cbd5e1;
+            --slate-400: #94a3b8;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+
+            --emerald-500: #10b981;
+            --amber-500: #f59e0b;
+            --red-500: #ef4444;
+
+            --space-2xs: 0.25rem;
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 2.5rem;
+            --space-3xl: 3rem;
+
+            --font-size-xs: 0.85rem;
+            --font-size-sm: 1rem;
+            --font-size-base: 1.15rem;
+            --font-size-lg: 1.3rem;
+            --font-size-xl: 1.45rem;
+            --font-size-2xl: 1.7rem;
+            --font-size-3xl: 2.1rem;
+            --font-size-4xl: 2.5rem;
+
+            --line-height-tight: 1.2;
+            --line-height-base: 1.6;
+            --line-height-relaxed: 1.75;
+
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --font-weight-extrabold: 800;
+
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+
+            --bg-primary: rgba(15, 23, 42, 0.85);
+            --bg-secondary: rgba(15, 23, 42, 0.78);
+            --bg-card: rgba(15, 23, 42, 0.7);
+            --bg-input: rgba(30, 41, 59, 0.55);
+            --text-primary: var(--slate-200);
+            --text-secondary: var(--slate-400);
+            --text-muted: rgba(148, 163, 184, 0.65);
+            --border-color: rgba(148, 163, 184, 0.18);
+            --gradient-primary: linear-gradient(135deg, var(--purple-600), var(--primary-500));
+            --gradient-background:
+                radial-gradient(ellipse at top, rgba(124, 58, 237, 0.18), transparent 55%),
+                radial-gradient(ellipse at bottom right, rgba(6, 182, 212, 0.18), transparent 55%),
+                linear-gradient(140deg, var(--slate-900), var(--slate-800));
+            --gradient-elevated: linear-gradient(135deg, rgba(124, 58, 237, 0.22), rgba(6, 182, 212, 0.16));
+            --gradient-start: var(--purple-600);
+            --gradient-end: var(--primary-500);
+            --focus-ring: var(--primary-500);
+            --blue: var(--primary-500);
+            --green: var(--emerald-500);
+            --orange: var(--amber-500);
+            --purple: var(--purple-500);
+            --success: var(--emerald-500);
+            --warning: var(--amber-500);
+            --error: var(--red-500);
+            --shadow-sm: 0 12px 28px -18px rgba(15, 23, 42, 0.6);
+            --shadow-md: 0 20px 44px -24px rgba(15, 23, 42, 0.7);
+            --shadow-lg: 0 32px 64px -30px rgba(15, 23, 42, 0.75);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+            --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        html[data-theme="light"] {
+            --bg-primary: #e8ecf4;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-input: #f8fafc;
+            --text-primary: var(--slate-800);
+            --text-secondary: var(--slate-500);
+            --text-muted: var(--slate-400);
+            --border-color: var(--slate-200);
+            --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 4px 12px -4px rgba(15, 23, 42, 0.15);
+            --shadow-lg: 0 18px 40px -18px rgba(15, 23, 42, 0.35);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--gradient-background);
+            color: var(--slate-200);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-base);
+            letter-spacing: 0.01em;
+            transition: background-color 0.3s var(--ease-standard), color 0.3s var(--ease-standard);
+        }
+
+        [data-theme="light"] body {
+            background: #e8ecf4;
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .glass-premium,
+        [data-theme="light"] .platform-section,
+        [data-theme="light"] .order-section,
+        [data-theme="light"] .sidebar-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e0;
+            box-shadow: 0 18px 36px -24px rgba(15, 23, 42, 0.25);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        [data-theme="light"] .stat-card {
+            background: linear-gradient(135deg, #f6f8fc, #e9edf7);
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.6),
+                inset 0 -1px 0 rgba(148, 163, 184, 0.2),
+                0 18px 36px -24px rgba(148, 163, 184, 0.35);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        [data-theme="light"] .stat-card::after {
+            box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.18);
+        }
+
+        [data-theme="light"] .platform-card {
+            background: linear-gradient(135deg, #f9fbff, #edf2ff);
+            border-color: rgba(191, 201, 228, 0.65);
+            color: #1f2937;
+            box-shadow: 0 18px 36px -28px rgba(148, 163, 184, 0.55);
+        }
+
+        [data-theme="light"] .platform-card:hover,
+        [data-theme="light"] .platform-card.active {
+            color: #0f172a;
+            border-color: rgba(106, 115, 255, 0.55);
+            background: linear-gradient(135deg, rgba(131, 146, 255, 0.25), rgba(162, 237, 255, 0.28));
+            box-shadow: 0 22px 40px -30px rgba(148, 163, 184, 0.6);
+        }
+
+        [data-theme="light"] .platform-card .platform-icon {
+            --icon-color: inherit;
+        }
+
+        [data-theme="light"] .platform-card:hover .platform-icon,
+        [data-theme="light"] .platform-card.active .platform-icon {
+            --icon-color: #4f46e5;
+        }
+
+        [data-theme="light"] .service-filter-select {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #1f2937;
+            box-shadow: none;
+        }
+
+        [data-theme="light"] .service-filter-select:focus {
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            color: #0f172a;
+        }
+
+        [data-theme="light"] .stat-label {
+            color: #5b6575;
+        }
+
+        [data-theme="light"] .stat-value {
+            color: #0f172a;
+            background: none;
+            background-clip: initial;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: currentColor;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-primary);
+            line-height: var(--line-height-tight);
+            font-weight: var(--font-weight-extrabold);
+            letter-spacing: -0.01em;
+        }
+
+        h1 { font-size: var(--font-size-4xl); }
+        h2 { font-size: var(--font-size-3xl); }
+        h3 { font-size: var(--font-size-2xl); }
+        h4 { font-size: var(--font-size-xl); }
+        h5 { font-size: var(--font-size-lg); }
+        h6 { font-size: var(--font-size-base); }
+
+        *:focus-visible {
+            outline: 3px solid rgba(6, 182, 212, 0.35);
+            outline-offset: 3px;
+            border-radius: calc(var(--radius-sm) / 2);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        body.animated-bg {
+            background: linear-gradient(to bottom right, #0f172a, rgba(88, 28, 135, 0.2), #0f172a);
+            background-size: 200% 200%;
+            animation: gradient-pan 12s ease-in-out infinite alternate;
+        }
+
+        [data-theme="light"] body.animated-bg {
+            background: #e8ecf4;
+            animation: none;
+        }
+
+        @keyframes gradient-pan {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 100%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.75; }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .page-wrapper {
+            width: 100%;
+            padding: var(--space-xl) var(--space-xl) var(--space-2xl);
+            max-width: 100%;
+        }
+
+        /* Stats Grid */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: var(--space-xl);
+        }
+
+        @media (max-width: 1024px) {
+            .stats-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .glass-premium,
+        .platform-section,
+        .order-section,
+        .sidebar-card {
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%),
+                rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card {
+            border-radius: 18px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: row;
+            gap: 14px;
+            align-items: center;
+            min-height: 80px;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            z-index: 0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: linear-gradient(135deg, #2F3341, #3C4352);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.04),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+                0 18px 42px -32px rgba(10, 12, 21, 0.9);
+            transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth);
+            animation: fadeInUp 0.6s var(--ease-smooth) backwards;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.05),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+                0 26px 56px -32px rgba(12, 15, 24, 0.95);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .stat-icon.blue { background: linear-gradient(135deg, #2563EB, #0891B2); }
+        .stat-icon.green { background: linear-gradient(135deg, #16A34A, #059669); }
+        .stat-icon.orange { background: linear-gradient(135deg, #CA8A04, #EA580C); }
+        .stat-icon.purple { background: linear-gradient(135deg, #7C3AED, #DB2777); }
+
+        .stat-icon svg {
+            display: block;
+            width: 24px;
+            height: 24px;
+        }
+
+        .stat-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #B6C0D1;
+            white-space: nowrap;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: 0.01em;
+            transition: color 0.25s var(--ease-smooth);
+        }
+
+        .stat-value span {
+            font: inherit;
+            color: inherit;
+        }
+
+        /* Platform Section */
+        .platform-section {
+            border-radius: 22px;
+            padding: 28px;
+            margin-bottom: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s var(--ease-smooth) 0.08s backwards;
+            background: linear-gradient(135deg, rgba(47, 50, 66, 0.92), rgba(30, 35, 52, 0.9));
+            border: 1px solid rgba(103, 121, 181, 0.32);
+            box-shadow: 0 40px 84px -56px rgba(12, 16, 30, 0.85);
+        }
+
+        .platform-section h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(248, 250, 255, 0.92);
+            margin: 0;
+        }
+
+        .platform-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+            flex-wrap: wrap;
+        }
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+            flex-wrap: wrap;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        @media (min-width: 1280px) {
+            .platform-grid {
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .platform-grid {
+                grid-template-columns: repeat(7, minmax(0, 1fr));
+            }
+        }
+
+        .platform-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            min-height: 72px;
+            border-radius: 20px;
+            border: 1px solid rgba(118, 131, 172, 0.4);
+            background: rgba(36, 43, 66, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: rgba(244, 247, 255, 0.95);
+            transition:
+                transform 0.24s var(--ease-smooth),
+                border-color 0.24s var(--ease-smooth),
+                background 0.24s var(--ease-smooth),
+                color 0.24s var(--ease-smooth),
+                box-shadow 0.24s var(--ease-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .platform-card:hover,
+        .platform-card.active {
+            transform: translateY(-2px);
+            border-color: rgba(125, 143, 255, 0.65);
+            background: linear-gradient(135deg, rgba(108, 125, 250, 0.88), rgba(64, 202, 212, 0.68));
+            color: #ffffff;
+            box-shadow: 0 24px 48px -30px rgba(92, 146, 255, 0.45);
+        }
+
+        .platform-card:focus-visible {
+            outline: 3px solid rgba(125, 143, 255, 0.65);
+            outline-offset: 2px;
+        }
+
+        .platform-icon {
+            font-size: 1.5rem;
+            line-height: 1;
+            color: var(--icon-color, inherit);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .platform-card:hover .platform-icon,
+        .platform-card.active .platform-icon {
+            --icon-color: #ffffff;
+        }
+
+        .platform-card.active .platform-icon {
+            --icon-color: #ffffff;
+        }
+
+        .platform-name {
+            font-size: 1.08rem;
+            font-weight: 600;
+            letter-spacing: -0.008em;
+            color: inherit;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            font-size: 0.9rem;
+            padding: 0.75rem 0;
+        }
+
+        .platform-filter {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .service-filter-select {
+            min-width: 220px;
+            min-height: 48px;
+            padding: 0.55rem 2.5rem 0.55rem 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(100, 116, 139, 0.35);
+            background: rgba(23, 28, 45, 0.72);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(226, 232, 240, 0.82);
+            transition: var(--transition);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' stroke='%2364748b' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.1rem;
+        }
+
+        .service-filter-select:focus {
+            outline: none;
+            border-color: rgba(124, 58, 237, 0.65);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+            color: #ffffff;
+        }
+
+        .service-filter-select option {
+            color: #1f2937;
+        }
+
+        /* Main Layout */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: var(--space-xl);
+        }
+
+        /* Order Form Section */
+        .order-section {
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s var(--ease-smooth) 0.12s backwards;
+        }
+
+        .order-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .order-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .order-header p {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* Search Box */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: var(--space-lg);
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.75rem;
+            min-height: 52px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--focus-ring);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.18);
+        }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            min-height: 52px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+            background-position: right 0.75rem center;
+            background-repeat: no-repeat;
+            background-size: 1.25rem;
+            padding-right: 2.5rem;
+            cursor: pointer;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--focus-ring);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.18);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* Total Display */
+        .total-box {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(6, 182, 212, 0.08));
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .total-label {
+            font-size: var(--font-size-xs);
+            text-transform: uppercase;
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-2xs);
+        }
+
+        .total-amount {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-extrabold);
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-xs);
+        }
+
+        .total-range {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            line-height: var(--line-height-relaxed);
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: var(--primary-500);
+        }
+
+        .checkbox-group input[type="checkbox"]:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+
+        .checkbox-group label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-group a {
+            color: var(--primary-600);
+            text-decoration: none;
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            min-height: 56px;
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-bold);
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-input);
+            color: var(--text-secondary);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: -120% -40%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: translateX(-100%) rotate(25deg);
+            opacity: 0;
+            transition: opacity 0.3s var(--ease-smooth);
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+            animation: shimmer 2.4s linear infinite;
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            flex: 1;
+            border-color: transparent;
+            box-shadow: 0 16px 32px -14px rgba(124, 58, 237, 0.55);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, var(--purple-700), var(--primary-600));
+            box-shadow: 0 20px 42px -18px rgba(124, 58, 237, 0.6);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: var(--bg-input);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-color: rgba(124, 58, 237, 0.35);
+            box-shadow: 0 16px 30px -20px rgba(15, 23, 42, 0.45);
+        }
+
+        /* Alert Messages */
+        .alert-container {
+            margin-bottom: 1rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            border: 1px solid;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .alert i {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+
+        .alert p {
+            font-size: var(--font-size-sm);
+            margin-bottom: 0.25rem;
+        }
+
+        .alert-close {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            padding: 0;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .alert-close:hover {
+            opacity: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .sidebar-card {
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s var(--ease-smooth) 0.2s backwards;
+        }
+
+        .sidebar-card::before {
+            content: '';
+            position: absolute;
+            inset: -60%;
+            background: var(--gradient-elevated);
+            opacity: 0;
+            transition: opacity 0.4s var(--ease-smooth);
+            pointer-events: none;
+        }
+
+        .sidebar-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(124, 58, 237, 0.32);
+            transform: translateY(-6px);
+        }
+
+        .sidebar-card:hover::before {
+            opacity: 1;
+        }
+
+        /* User Profile */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .user-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.125rem;
+        }
+
+        .user-info p {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .balance-box {
+            background: var(--bg-input);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .balance-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-sm);
+        }
+
+        .balance-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .add-funds-btn {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 40px -18px rgba(124, 58, 237, 0.55);
+        }
+
+        .add-funds-btn::after {
+            content: '';
+            position: absolute;
+            inset: -120% -40%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+            transform: translateX(-100%) rotate(25deg);
+            opacity: 0;
+            transition: opacity 0.3s var(--ease-smooth);
+        }
+
+        .add-funds-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--purple-700), var(--primary-600));
+            box-shadow: 0 24px 46px -20px rgba(124, 58, 237, 0.65);
+        }
+
+        .add-funds-btn:hover::after {
+            opacity: 1;
+            animation: shimmer 2.2s linear infinite;
+        }
+
+        .add-funds-btn:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 3px;
+        }
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.55rem 1.1rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            animation: pulse 2.4s ease-in-out infinite;
+            box-shadow: 0 16px 32px -18px rgba(124, 58, 237, 0.55);
+        }
+
+        .status-text {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: 1rem;
+        }
+
+        .discount-box {
+            background: var(--bg-input);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .discount-box h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Rewards */
+        .rewards-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .rewards-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            box-shadow: 0 14px 28px -18px rgba(124, 58, 237, 0.55);
+        }
+
+        .rewards-info h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .rewards-info p {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            letter-spacing: 0.05em;
+        }
+
+        .points-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--font-size-sm);
+            margin-bottom: 1rem;
+        }
+
+        .points-row span:first-child {
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+
+        .points-row span:last-child {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-input);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            transition: width 0.5s ease;
+        }
+
+        .convert-btn {
+            width: 100%;
+            padding: 0.85rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 18px 40px -18px rgba(124, 58, 237, 0.55);
+        }
+
+        .convert-btn::after {
+            content: '';
+            position: absolute;
+            inset: -120% -40%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+            transform: translateX(-100%) rotate(25deg);
+            opacity: 0;
+            transition: opacity 0.3s var(--ease-smooth);
+        }
+
+        .convert-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, var(--purple-700), var(--primary-600));
+            box-shadow: 0 24px 46px -20px rgba(124, 58, 237, 0.65);
+        }
+
+        .convert-btn:hover::after {
+            opacity: 1;
+            animation: shimmer 2.2s linear infinite;
+        }
+
+        .convert-btn:focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 3px;
+        }
+
+        .conversion-text {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            margin-top: 0.5rem;
+        }
+
+        /* Recent Orders Table */
+        .orders-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .orders-table {
+            width: 100%;
+            font-size: var(--font-size-sm);
+        }
+
+        .orders-table thead {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .orders-table th {
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            line-height: var(--line-height-relaxed);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 0.75rem 0.5rem;
+        }
+
+        .orders-table td {
+            padding: 0.875rem 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .orders-table tbody tr {
+            transition: var(--transition);
+        }
+
+        .orders-table tbody tr:hover {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(6, 182, 212, 0.12));
+            box-shadow: 0 14px 32px -20px rgba(15, 23, 42, 0.35);
+        }
+
+        .orders-table tbody tr:hover td {
+            color: var(--text-primary);
+        }
+
+        .order-id {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .status-badge-table {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-badge-table.completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge-table.processing {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--blue);
+        }
+
+        .status-badge-table.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: var(--space-lg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: var(--space-lg);
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .platform-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .platform-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+
+            .button-group .btn {
+                flex: 1 1 100%;
+            }
+
+            .platform-section {
+                padding: 22px;
+            }
+
+            .platform-card {
+                padding: 14px;
+                min-height: 64px;
+            }
+
+            .service-filter-select {
+                width: 100%;
+                min-width: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+            }
+
+            .page-wrapper {
+                padding: var(--space-md) !important;
+            }
+
+            .platform-section,
+            .sidebar {
+                display: none !important;
+            }
+
+            .order-section,
+            .stats-container {
+                box-shadow: none !important;
+                border: 1px solid #d1d5db !important;
+            }
+        }
+
+        /* Loading Spinner */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+    
+    </style>
+</head>
+<body class="animated-bg">
+    <div class="page-wrapper">
+        <!-- Stats Grid -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <svg class="stat-icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="m7.5 4.27 9 5.15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="m3.3 7 8.7 5 8.7-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 22V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Total Orders</div>
+                    <!-- Total -->
+                    <div class="stat-value" data-stat="totalOrders">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <svg class="stat-icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="m9 11 3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Completed</div>
+                    <!-- Completed -->
+                    <div class="stat-value" data-stat="completedOrders">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange">
+                    <svg class="stat-icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 3v5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Pending</div>
+                    <!-- Pending -->
+                    <div class="stat-value" data-stat="pendingOrders">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple">
+                    <svg class="stat-icon-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <line x1="12" y1="2" x2="12" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-label">Spent</div>
+                    <!-- Spent -->
+                    <div class="stat-value">
+                      <span data-stat="spentAmount">$0.00</span>
+                      <!-- চাইলে আলাদা কারেন্সি ট্যাগও দেখাতে পারেন -->
+                      <span class="sr-only" data-stat="spentCurrency">USD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Platform Selection -->
+        <div class="platform-section">
+            <div class="platform-header">
+                <h2>Select Platform</h2>
+                <div class="platform-filter">
+                    <label class="sr-only" for="platformCategoryFilter">Filter platforms</label>
+                    <select id="platformCategoryFilter" class="service-filter-select">
+                        <option value="">{{ lang('general.all_categories')|default('All categories') }}</option>
+                        {% if extended_categories %}
+                            {% for category in extended_categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <div class="platform-grid" id="platformGrid">
+                {% if extended_categories %}
+                    {% for category in extended_categories %}
+                        <button type="button" class="platform-card{% if loop.first %} active{% endif %}" data-category="{{ category.id }}" tabindex="0">
+                            <span class="platform-icon" data-platform-icon aria-hidden="true"></span>
+                            <span class="platform-name">{{ category.name }}</span>
+                        </button>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">No platforms available</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Main Content Layout -->
+        <div class="content-layout">
+            <!-- Order Form -->
+            <div>
+                <div id="alertContainer" class="alert-container"></div>
+
+                <div class="order-section">
+                    <div class="order-header">
+                        <h2>New Order</h2>
+                        <p>Smooth, fast, and secure checkout</p>
+                    </div>
+
+                    <!-- Service Search -->
+                    <div class="search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" id="serviceSearch" placeholder="Search services..." tabindex="0">
+                    </div>
+
+                    <!-- Order Form -->
+                    <form id="order-form" {% if site['rtl'] %} class="rtl-form"{% endif %} action="{{ page['url'] }}" method="post" novalidate>
+                        <input type="hidden" name="_csrf" value="{{ csrftoken }}">
+
+                        {% if error %}
+                          <div class="alert alert-dismissible alert-danger {% if site['rtl'] %} rtl-alert {% endif %}">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ errorMessage }}
+                          </div>
+                        {% endif %}
+
+                        {% if 1 == success %}
+                          <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4>{{lang('neworder.message.success')}}</h4>
+                            {{lang('neworder.id')}}: {{order['id']}}<br>
+                            {{lang('neworder.service')}}: {{order['service']}}
+                            <br>
+                            {{lang('neworder.link')}}: {{order['link']}}<br>
+                            {{lang('neworder.quantity')}}: {{order['quantity']}}<br>
+                            {{ lang('neworder.charge') }}: {% if order.converted %} <span data-toggle="tooltip" data-placement="top" title="{{ order.original_charge }}">{{ order['charge'] }}</span> {% else %} {{ order['charge'] }} {% endif %}<br>
+                            {{ lang('neworder.balance') }}: {% if order.converted %} <span data-toggle="tooltip" data-placement="top" title="{{ order.original_balance }}">{{ order['balance'] }}</span> {% else %} {{ order['balance'] }} {% endif %}<br>
+                          </div>
+                        {% endif %}
+
+                        {% if 2 == success %}
+                          <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4>{{lang('neworder.message.success')}}</h4>
+                            {{lang('neworder.subscription_id')}}: {{order['id']}}<br>
+                            {{lang('neworder.service')}}: {{order['service']}}
+                            <br>
+                            {{lang('neworder.username')}}: {{order['link']}}<br>
+                            {{lang('neworder.quantity')}}:
+                            {% if order['quantity_min'] == order['quantity_max'] %}
+                              {{order['quantity_max']}}
+                            {% else %}
+                              {{order['quantity_min']}}-{{order['quantity_max']}}
+                            {% endif %}
+                            <br>
+                            {{lang('neworder.new_posts')}}:
+                            {{order['posts']}}
+                            <br>
+                            {{lang('neworder.old_posts')}}:
+                            {{order['old_posts']}}
+                            <br>
+                            {{lang('neworder.delay')}}:
+                            {{order['delay']}}
+                            <br>
+                          </div>
+                        {% endif %}
+
+                        <!-- Search field moved to top of form -->
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="orderform-category" class="form-label">{{ lang('neworder.category')|default('Category') }}</label>
+                                <select class="form-select" id="orderform-category" name="OrderForm[category]" required tabindex="0"
+                                    data-select="true"
+                                    data-select-search="true"
+                                    data-select-search-placeholder="{{ lang('general.search.placeholder')|default('Search...') }}"
+                                    {% if site['rtl'] %} data-select-dir="rtl" {% endif %}
+                                >
+                                    {% for category in extended_categories %}
+                                      <option
+                                          value="{{ category.id }}"
+                                          {% if category.icon %}
+                                            data-icon="
+                                              {% if category.icon['icon_type'] == 'icon' %}
+                                                <span class='{{ category.icon['icon'] }}'></span>
+                                              {% elseif category.icon['icon_type'] == 'emoji' %}
+                                                <span>{{ category.icon['icon'] }}</span>
+                                              {% elseif category.icon['icon_type'] == 'image' %}
+                                                <img src='{{ category.icon['url'] }}' alt='{{ category.name }}' class='img-responsive btn-group-vertical'>
+                                              {% endif %}
+                                            "
+                                          {% endif %}
+                                          {% if category.id == data['category'] %} selected {% endif %}
+                                      >
+                                          {{ category.name }}
+                                      </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="orderform-service" class="form-label">{{ lang('neworder.service')|default('Service') }}</label>
+                                <select class="form-select" id="orderform-service" name="OrderForm[service]" required tabindex="0"
+                                    data-select="true"
+                                    data-select-search="true"
+                                    data-select-search-placeholder="{{ lang('general.search.placeholder')|default('Search...') }}"
+                                    {% if site['rtl'] %} data-select-dir="rtl" {% endif %}
+                                >
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group hidden fields" id="service_description">
+                          <label for="service_description" class="form-label">{{ lang('neworder.description')|default('Description') }}</label>
+                          <div class="panel-body border-solid border-rounded">
+                              {{service['description']}}
+                          </div>
+                        </div>
+
+                        <div id="fields"></div>
+
+                        <!-- Charge field removed to prevent duplication -->
+<!-- ✅ ADD: backend-র ক্যালকুলেটেড টোটাল/চার্জ দেখাবে -->
+<div class="form-group">
+  <label for="charge" class="form-label">{{ lang('neworder.charge')|default('Charge') }}</label>
+  <input type="text"
+         class="form-input"
+         id="charge"
+         name="OrderForm[charge]"
+         value="{{ order['charge']|default('0.00') }}"
+         readonly>
+</div>
+
+
+                        <!-- Terms Checkbox -->
+                        <div class="checkbox-group" id="termsGroup" style="display: {% if check_agreement %}flex{% else %}none{% endif %};">
+                            <input type="checkbox" id="termsCheckbox" name="OrderForm[termsofservice]" value="1" tabindex="0"{% if data is defined and data['termsofservice'] %} checked{% endif %}>
+                            <label for="termsCheckbox">
+                                {{lang('signup.accept_terms_text')|default('I accept the')}} <a href="{{ page_url('terms') }}" target="_blank" tabindex="0">{{ lang('terms.signup_checkbox')|default('Terms of Service') }}</a>
+                            </label>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="button-group">
+                            <!-- ✅ Template-style submit -->
+                            <button type="submit" class="btn btn-primary">{{ lang('neworder.button')|default('Submit Order') }}</button>
+                            
+                            <!-- ✅ Reset বাটন রাখা হবে -->
+                            <button type="button" class="btn btn-secondary" id="resetBtn">
+                              {{ lang('general.reset')|default('Reset') }}
+                            </button>
+                        </div>
+                    </form>
+                    
+                    {% if newOrderText %}
+                      <div class="additional-info {% if site['rtl'] %} rtl-content {% endif %}">
+                        {{ newOrderText }}
+                      </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- User Profile Card -->
+                <div class="sidebar-card">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <h3>Tanmoy Debnath</h3>
+                            <p>@tanmoysk</p>
+                        </div>
+                    </div>
+
+                    <div class="balance-box">
+                        <div class="balance-label">Current Balance</div>
+                        <div class="balance-amount">$50.00</div>
+                        <button class="add-funds-btn" tabindex="0">
+                            <i class="fas fa-plus"></i>
+                            <span>+ $20</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Account Status Card -->
+                <div class="sidebar-card">
+                    <span class="status-badge">
+                        <i class="fas fa-star"></i>
+                        Rising Reseller
+                    </span>
+                    <div class="status-text">
+                        This level comes with exclusive benefits.
+                    </div>
+                    <div class="discount-box">
+                        <h4>Discount 3%</h4>
+                    </div>
+                </div>
+
+                <!-- Rewards Card -->
+                <div class="sidebar-card">
+                    <div class="rewards-header">
+                        <div class="rewards-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="rewards-info">
+                            <h3>Spend & Earn Points</h3>
+                            <p>Rewards</p>
+                        </div>
+                    </div>
+
+                    <div class="points-row">
+                        <span>Balance Used: 99%</span>
+                        <span>Points: 985</span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 99%"></div>
+                    </div>
+
+                    <button class="convert-btn" tabindex="0">Convert Points</button>
+                    <div class="conversion-text">100 pts = $1</div>
+                </div>
+
+                <!-- Recent Orders Card -->
+                <div class="sidebar-card">
+                    <h3 class="orders-title">Recent Orders</h3>
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Service</th>
+                                <th>QTY</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="order-id">#1299</td>
+                                <td>IG Premium Likes</td>
+                                <td>5,000</td>
+                                <td><span class="status-badge-table completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">#1298</td>
+                                <td>TT Standard Followers</td>
+                                <td>1,000</td>
+                                <td><span class="status-badge-table processing">Processing</span></td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">#1297</td>
+                                <td>YT HR Views</td>
+                                <td>50,000</td>
+                                <td><span class="status-badge-table completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">#1296</td>
+                                <td>FB Page Likes</td>
+                                <td>2,500</td>
+                                <td><span class="status-badge-table pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td class="order-id">#1295</td>
+                                <td>IG Fast Followers</td>
+                                <td>20,000</td>
+                                <td><span class="status-badge-table completed">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categoriesFromTemplate = {{ extended_categories|default([])|json_encode|raw }};
+        const serviceCategoryFromTemplate = {{ serviceCategoryList|default([])|json_encode|raw }};
+        const fallbackServices = {{ services|default([])|json_encode|raw }};
+        const categoriesList = Array.isArray(categoriesFromTemplate) ? categoriesFromTemplate : [];
+        const currencySymbolDefault = {{ site["currency_symbol"]|default("$")|json_encode|raw }};
+        const servicesByCategory = buildServicesMap(serviceCategoryFromTemplate, categoriesList, fallbackServices);
+
+        const PLATFORM_ICON_RULES = [
+            { pattern: /all\s*services/i, icon: 'fa-solid fa-globe', color: '#60a5fa' },
+            { pattern: /instagram|insta|ig/i, icon: 'fa-brands fa-instagram', color: '#e1306c' },
+            { pattern: /facebook|fb/i, icon: 'fa-brands fa-facebook-f', color: '#1877f2' },
+            { pattern: /tiktok|tik\s*tok|tt/i, icon: 'fa-brands fa-tiktok', color: '#ff0050' },
+            { pattern: /youtube|yt/i, icon: 'fa-brands fa-youtube', color: '#ff0000' },
+            { pattern: /twitter|x\s*\(?twitter\)?|tweet/i, icon: 'fa-brands fa-x-twitter', color: '#0f1419' },
+            { pattern: /telegram|tg/i, icon: 'fa-brands fa-telegram', color: '#2ca5e0' },
+            { pattern: /linkedin|in\b/i, icon: 'fa-brands fa-linkedin-in', color: '#0a66c2' },
+            { pattern: /threads/i, icon: 'fa-brands fa-threads', color: '#000000' },
+            { pattern: /snapchat|snap/i, icon: 'fa-brands fa-snapchat', color: '#fffc00' },
+            { pattern: /pinterest|pin/i, icon: 'fa-brands fa-pinterest', color: '#e60023' },
+            { pattern: /reddit/i, icon: 'fa-brands fa-reddit-alien', color: '#ff4500' },
+            { pattern: /discord/i, icon: 'fa-brands fa-discord', color: '#5865f2' },
+            { pattern: /twitch/i, icon: 'fa-brands fa-twitch', color: '#9146ff' },
+            { pattern: /spotify/i, icon: 'fa-brands fa-spotify', color: '#1db954' },
+            { pattern: /soundcloud/i, icon: 'fa-brands fa-soundcloud', color: '#ff5500' },
+            { pattern: /whatsapp|wa/i, icon: 'fa-brands fa-whatsapp', color: '#25d366' },
+            { pattern: /google/i, icon: 'fa-brands fa-google', color: '#4285f4' },
+            { pattern: /medium/i, icon: 'fa-brands fa-medium', color: '#000000' },
+            { pattern: /blog/i, icon: 'fa-solid fa-pen-nib', color: '#6366f1' },
+            { pattern: /review|rating/i, icon: 'fa-solid fa-star', color: '#fbbf24' },
+            { pattern: /shop|store|commerce|product/i, icon: 'fa-solid fa-store', color: '#fb7185' },
+            { pattern: /crypto|coin|bitcoin|btc|token/i, icon: 'fa-solid fa-coins', color: '#f59e0b' },
+            { pattern: /nft/i, icon: 'fa-solid fa-cubes', color: '#38bdf8' },
+            { pattern: /email/i, icon: 'fa-solid fa-envelope', color: '#3b82f6' },
+            { pattern: /sms|text/i, icon: 'fa-solid fa-mobile-screen-button', color: '#16a34a' },
+            { pattern: /seo/i, icon: 'fa-solid fa-chart-line', color: '#8b5cf6' },
+            { pattern: /ads|ppc/i, icon: 'fa-solid fa-bullhorn', color: '#f87171' },
+            { pattern: /traffic/i, icon: 'fa-solid fa-traffic-light', color: '#f97316' },
+            { pattern: /gaming|game/i, icon: 'fa-solid fa-gamepad', color: '#6366f1' },
+            { pattern: /music|song/i, icon: 'fa-solid fa-music', color: '#7c3aed' },
+            { pattern: /video|stream/i, icon: 'fa-solid fa-clapperboard', color: '#38bdf8' }
+        ];
+
+        const PLATFORM_ICON_FALLBACK = [
+            { icon: 'fa-solid fa-globe', color: '#60a5fa' },
+            { icon: 'fa-solid fa-star', color: '#fbbf24' },
+            { icon: 'fa-solid fa-bolt', color: '#facc15' },
+            { icon: 'fa-solid fa-lightbulb', color: '#fde047' },
+            { icon: 'fa-solid fa-fire', color: '#fb7185' },
+            { icon: 'fa-solid fa-rocket', color: '#818cf8' },
+            { icon: 'fa-solid fa-gem', color: '#a855f7' },
+            { icon: 'fa-solid fa-chart-line', color: '#38bdf8' },
+            { icon: 'fa-solid fa-layer-group', color: '#22d3ee' },
+            { icon: 'fa-solid fa-network-wired', color: '#2dd4bf' },
+            { icon: 'fa-solid fa-shield-halved', color: '#6366f1' },
+            { icon: 'fa-solid fa-award', color: '#f97316' }
+        ];
+
+        function buildServicesMap(serviceCategories, categories, fallbackServices) {
+            const map = {};
+
+            const ensureEntry = (key) => {
+                const id = String(key);
+                if (!map[id]) {
+                    map[id] = [];
+                }
+                return id;
+            };
+
+            const upsert = (categoryId, rawService) => {
+                if (!categoryId || !rawService) return;
+                const key = ensureEntry(categoryId);
+                const normalized = normalizeService(rawService);
+                if (!normalized) return;
+                if (map[key].some(item => item.id === normalized.id)) return;
+                map[key].push(normalized);
+            };
+
+            if (Array.isArray(serviceCategories)) {
+                serviceCategories.forEach(cat => {
+                    const catId = cat?.id ?? cat?.category_id ?? cat?.category ?? null;
+                    const list = Array.isArray(cat?.services) ? cat.services :
+                                 Array.isArray(cat?.list) ? cat.list : [];
+                    list.forEach(service => upsert(catId, service));
+                });
+            }
+
+            if (Array.isArray(categories)) {
+                categories.forEach(cat => {
+                    const catId = cat?.id ?? cat?.category_id ?? cat?.category ?? null;
+                    const list = Array.isArray(cat?.services) ? cat.services :
+                                 Array.isArray(cat?.list) ? cat.list : [];
+                    list.forEach(service => upsert(catId, service));
+                });
+            }
+
+            if (Array.isArray(fallbackServices)) {
+                fallbackServices.forEach(service => {
+                    const catId = service?.category_id ?? service?.category ?? service?.categoryId ?? null;
+                    upsert(catId, service);
+                });
+            }
+
+            Object.keys(map).forEach(key => {
+                map[key].sort((a, b) => a.name.localeCompare(b.name));
+            });
+
+            return map;
+        }
+        function normalizeService(raw) {
+            const id = raw?.id ?? raw?.service_id ?? raw?.serviceId ?? raw?.service ?? raw?.ID;
+            if (!id) return null;
+            const title = raw?.name ?? raw?.service ?? raw?.title ?? `Service #${id}`;
+            const rawRate = raw?.rate ?? raw?.price ?? raw?.cost ?? raw?.price_per_1000 ?? raw?.pricePer1000 ?? '';
+            const rawMin = raw?.min ?? raw?.minimum ?? raw?.min_quantity ?? raw?.min_order;
+            const rawMax = raw?.max ?? raw?.maximum ?? raw?.max_quantity ?? raw?.max_order;
+            const ratePerThousandSource =
+                raw?.price_per_1000 ?? raw?.pricePer1000 ?? raw?.per_1000 ?? raw?.rate_per_1000 ?? rawRate;
+            const parsedTitle = parseRateFromText(title);
+
+            let normalizedRate = toNumber(ratePerThousandSource);
+            if (!normalizedRate && parsedTitle.amount) normalizedRate = parsedTitle.amount;
+            let numericRate = toNumber(rawRate);
+            if (!numericRate && normalizedRate) numericRate = normalizedRate;
+
+            const detectedCurrency = raw?.currency_symbol ?? raw?.currency ?? parsedTitle.currency ?? currencySymbolDefault;
+
+            return {
+                id: String(id),
+                name: title,
+                rate: numericRate,
+                min: toInt(rawMin),
+                max: toInt(rawMax),
+                rawRate,
+                rawMin,
+                rawMax,
+                currency: detectedCurrency,
+                ratePer1000: normalizedRate,
+            };
+        }
+
+        function toNumber(value) {
+            if (value === null || value === undefined || value === '') return 0;
+            const numeric = parseFloat(String(value).replace(/[^0-9.,]/g, '').replace(',', '.'));
+            return Number.isFinite(numeric) ? numeric : 0;
+        }
+
+        function toInt(value) {
+            if (value === null || value === undefined || value === '') return 0;
+            const numeric = parseInt(String(value).replace(/[^0-9]/g, ''), 10);
+            return Number.isFinite(numeric) ? numeric : 0;
+        }
+
+        function readServicePayload(raw) {
+            if (!raw) return null;
+            try {
+                return JSON.parse(raw);
+            } catch (_) {
+                return null;
+            }
+        }
+
+        function parseRateFromText(text) {
+            if (!text) return { amount: 0, currency: null };
+            const symbolRegex = /((?:USD|EUR|GBP|CAD|AUD|NZD|SGD|HKD)\s*)?([$€£₹₽¥₩₦₱฿₺₴])\s*([\d.,]+)/i;
+            const perRegex = /([\d.,]+)\s*(?:\/|\bper\b)\s*(?:1k|1000)\b/i;
+            let amount = 0;
+            let currency = null;
+
+            const symbolMatch = text.match(symbolRegex);
+            if (symbolMatch) {
+                currency = symbolMatch[2] || currency;
+                amount = toNumber(symbolMatch[3]);
+            }
+
+            if (!amount) {
+                const perMatch = text.match(perRegex);
+                if (perMatch) {
+                    amount = toNumber(perMatch[1]);
+                }
+            }
+
+            return { amount, currency };
+        }
+
+        function extractDisplayRate(option, payload = {}) {
+            const fallbackSymbol = payload.currency || currencySymbolDefault || '$';
+            const label = option?.textContent || payload.name || '';
+            const symbolRegex = /((?:USD|EUR|GBP|CAD|AUD|NZD|SGD|HKD)\s*)?([$€£₹₽¥₩₦₱฿₺₴])\s*([\d.,]+)/i;
+            const perRegex = /([\d.,]+)\s*(?:\/|\bper\b)\s*(?:1k|1000)\b/i;
+
+            let currency = fallbackSymbol;
+            let amount = 0;
+
+            const symbolMatch = label.match(symbolRegex);
+            if (symbolMatch) {
+                currency = symbolMatch[2] || currency;
+                amount = toNumber(symbolMatch[3]);
+            } else {
+                const perMatch = label.match(perRegex);
+                if (perMatch) {
+                    amount = toNumber(perMatch[1]);
+                }
+            }
+
+            if (!amount) {
+                amount = toNumber(payload.rate);
+            }
+
+            return { amount, currency };
+        }
+
+        function iconClassForPlatform(label, index) {
+            const name = String(label || '').trim();
+            if (name) {
+                const match = PLATFORM_ICON_RULES.find(rule => rule.pattern.test(name));
+                if (match) {
+                    return { icon: match.icon, color: match.color };
+                }
+                const hash = Array.from(name).reduce((acc, ch) => acc + (ch.codePointAt(0) || 0), 0);
+                const idx = Number.isFinite(hash) ? hash % PLATFORM_ICON_FALLBACK.length : index % PLATFORM_ICON_FALLBACK.length;
+                return PLATFORM_ICON_FALLBACK[idx] || PLATFORM_ICON_FALLBACK[0];
+            }
+            return PLATFORM_ICON_FALLBACK[index % PLATFORM_ICON_FALLBACK.length] || PLATFORM_ICON_FALLBACK[0];
+        }
+
+        function assignPlatformIcons() {
+            const cards = document.querySelectorAll('.platform-card');
+            cards.forEach((card, idx) => {
+                const labelEl = card.querySelector('.platform-name');
+                const target = card.querySelector('[data-platform-icon]');
+            if (!labelEl || !target) return;
+            const data = iconClassForPlatform(labelEl.textContent || '', idx);
+            if (data.color) {
+                target.style.setProperty('--icon-color', data.color);
+                target.style.color = data.color;
+            } else {
+                target.style.removeProperty('--icon-color');
+                target.style.color = '';
+            }
+            target.innerHTML = `<i class="${data.icon}"></i>`;
+        });
+    }
+
+        function setupPlatformButtons() {
+            const buttons = Array.from(document.querySelectorAll('.platform-card'));
+            const categorySelect = document.getElementById('orderform-category');
+            if (!buttons.length || !categorySelect) return;
+
+            const activate = (btn) => {
+                buttons.forEach(b => b.classList.remove('active'));
+                if (btn) btn.classList.add('active');
+                const filter = document.getElementById('platformCategoryFilter');
+                if (filter) {
+                    filter.value = btn ? btn.getAttribute('data-category') || '' : '';
+                }
+            };
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activate(btn);
+                    const catId = btn.getAttribute('data-category') || '';
+                    if (catId && categorySelect.value !== catId) {
+                        categorySelect.value = catId;
+                    }
+                    categorySelect.dispatchEvent(new Event('change', { bubbles: true }));
+                });
+            });
+
+            const preselected = categorySelect.value;
+            const match = buttons.find(btn => btn.getAttribute('data-category') === preselected);
+            if (match) {
+                activate(match);
+            } else if (buttons.length) {
+                const first = buttons[0];
+                activate(first);
+                const firstCategory = first.getAttribute('data-category');
+                if (firstCategory && !preselected) {
+                    categorySelect.value = firstCategory;
+                }
+            }
+        }
+
+        function loadServices(categoryId) {
+            const serviceSelect = document.getElementById('orderform-service');
+            if (!serviceSelect) return;
+            const placeholder = serviceSelect.dataset.placeholder || 'Select service';
+            const previousValue = serviceSelect.value;
+            serviceSelect.innerHTML = `<option value="">${placeholder}</option>`;
+
+            const services = servicesByCategory[String(categoryId)] || [];
+            services.forEach(service => {
+                const option = document.createElement('option');
+                option.value = service.id;
+                option.textContent = service.name;
+                if (Number.isFinite(service.rate)) option.dataset.rate = String(service.rate);
+                if (Number.isFinite(service.ratePer1000)) option.dataset.ratePer1000 = String(service.ratePer1000);
+                if (service.currency) option.dataset.currency = service.currency;
+                if (Number.isFinite(service.min)) option.dataset.min = String(service.min);
+                if (Number.isFinite(service.max)) option.dataset.max = String(service.max);
+                option.dataset.service = JSON.stringify(service);
+                serviceSelect.appendChild(option);
+            });
+
+            if (services.length) {
+                let targetId = previousValue;
+                if (!services.some(service => service.id === targetId)) {
+                    const preserved = services.find(service => service.id === previousValue);
+                    targetId = preserved ? preserved.id : services[0].id;
+                }
+                if (targetId) {
+                    serviceSelect.value = targetId;
+                    if (serviceSelect.value !== targetId) {
+                        serviceSelect.value = services[0]?.id ?? '';
+                    }
+                    if (serviceSelect.value) {
+                        serviceSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                        return;
+                    }
+                }
+            }
+
+            calculateTotal();
+        }
+
+        // calculateTotal function removed
+
+        function showAlert(type, message) {
+            const alertContainer = document.getElementById('alertContainer');
+            if (!alertContainer) return;
+            const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type}">
+                    <i class="fas ${iconClass}"></i>
+                    <div class="alert-content">${message}</div>
+                    <button class="alert-close" onclick="this.parentElement.remove()" tabindex="0">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            setTimeout(() => {
+                alertContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        document.getElementById('serviceSearch')?.addEventListener('input', (event) => {
+            const searchTerm = event.target.value.toLowerCase();
+            const serviceSelect = document.getElementById('orderform-service');
+            if (!serviceSelect) return;
+            const options = serviceSelect.querySelectorAll('option');
+            options.forEach(option => {
+                if (!option.value) return;
+                option.style.display = option.textContent.toLowerCase().includes(searchTerm) ? '' : 'none';
+            });
+        });
+
+        document.getElementById('orderform-category')?.addEventListener('change', (event) => {
+            const catId = event.target.value;
+            const filter = document.getElementById('platformCategoryFilter');
+            if (filter && filter.value !== catId) {
+                filter.value = catId || '';
+            }
+            loadServices(catId);
+        });
+
+        // Total calculation event listeners removed
+
+        document.getElementById('platformCategoryFilter')?.addEventListener('change', (event) => {
+            const catId = event.target.value;
+            const categorySelect = document.getElementById('orderform-category');
+            if (!categorySelect) return;
+
+            if (catId) {
+                if (categorySelect.value !== catId) {
+                    categorySelect.value = catId;
+                    categorySelect.dispatchEvent(new Event('change', { bubbles: true }));
+                } else {
+                    loadServices(catId);
+                }
+            }
+
+            if (catId) {
+                const buttons = document.querySelectorAll('.platform-card');
+                buttons.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-category') === catId));
+            }
+        });
+
+        // Form submit handler removed - allowing real backend submission
+
+        document.getElementById('resetBtn')?.addEventListener('click', () => {
+            const form = document.getElementById('order-form');
+            if (form) form.reset();
+            const alertContainer = document.getElementById('alertContainer');
+            if (alertContainer) alertContainer.innerHTML = '';
+        });
+
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'theme-change') {
+                document.documentElement.setAttribute('data-theme', event.data.theme);
+            }
+        });
+
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const theme = savedTheme || systemTheme;
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTheme();
+            assignPlatformIcons();
+            setupPlatformButtons();
+            const categorySelect = document.getElementById('orderform-category');
+            if (categorySelect) {
+                let initialCategory = categorySelect.value;
+                if (!initialCategory && categoriesList.length) {
+                    const first = categoriesList[0]?.id ?? categoriesList[0]?.category_id ?? categoriesList[0]?.category;
+                    if (first) {
+                        initialCategory = String(first);
+                        categorySelect.value = initialCategory;
+                    }
+                }
+                if (initialCategory) {
+                    loadServices(initialCategory);
+                } else {
+                    loadServices('');
+                }
+            }
+        });
+    </script>
+
+<script> 
+(()=> { 
+  // ===== CONFIG ===== 
+  const BASE = 'https://panelapi-proxy.panelempire.workers.dev'; 
+
+  // Twig থেকে username নিন (PerfectPanel টেমপ্লেট ভ্যারিয়েবলসমূহ) 
+  const username = {{ (user.username ?? account.username ?? app.user.username ?? '""')|json_encode|raw }}; 
+
+  if (!username || typeof username !== 'string' || !username.trim()) { 
+    console.warn('PMX stats: no username found; skip user-scoped counters.'); 
+    return; 
+  } 
+
+  // ===== DOM refs ===== 
+  const $ = s => document.querySelector(s); 
+  const set = (el, v) => { if (el) el.textContent = String(v); }; 
+
+  const $totalEl     = $('[data-stat="totalOrders"]'); 
+  const $completedEl = $('[data-stat="completedOrders"]'); 
+  const $pendingEl   = $('[data-stat="pendingOrders"]'); 
+  const $spentEl     = $('[data-stat="spentAmount"]'); 
+  const $spentCurEl  = $('[data-stat="spentCurrency"]'); 
+
+  // ===== helpers ===== 
+  const getJSON = (url) => 
+    fetch(url, { credentials: 'omit' }).then(r => { 
+      if (!r.ok) throw new Error('HTTP ' + r.status); 
+      return r.json(); 
+    }); 
+
+  const paginate = async (firstUrl, maxPages = 30) => { 
+    const list = []; 
+    let url = firstUrl, page = 0; 
+    while (url && page < maxPages) { 
+      const j = await getJSON(url); 
+      list.push(...(j?.data?.list ?? [])); 
+      url = j?.data?.pagination?.next_page_href || null; 
+      page++; 
+    } 
+    return list; 
+  }; 
+
+  const COMPLETED = new Set(['completed','success']); 
+  const PENDING   = new Set(['pending','in_progress','processing']); 
+
+  (async () => { 
+    // (optional) health ping 
+    getJSON(`${BASE}/health`).catch(()=>{}); 
+
+    const ordersUrl = `${BASE}/api/orders?limit=200&user=${encodeURIComponent(username)}`; 
+    const orders = await paginate(ordersUrl); 
+
+    let total = orders.length, completed = 0, pending = 0, spent = 0, currency = ''; 
+
+    for (const o of orders) { 
+      const st = String(o?.status || '').toLowerCase(); 
+
+      if (COMPLETED.has(st)) { 
+        completed++; 
+        const val = (o?.charge?.value != null) ? +o.charge.value 
+                  : (typeof o?.charge === 'number' ? o.charge : 0); 
+        const cur = o?.charge?.currency_code || o?.currency_code || ''; 
+        if (Number.isFinite(val)) spent += val; 
+        if (!currency && cur) currency = cur; 
+      } else if (PENDING.has(st)) { 
+        pending++; 
+      } 
+    } 
+
+    const formatted = (Intl && Intl.NumberFormat) 
+      ? new Intl.NumberFormat(undefined, { style:'currency', currency: currency || 'USD' }).format(spent || 0) 
+      : (currency ? `${currency} ${spent.toFixed(2)}` : `$${spent.toFixed(2)}`); 
+
+    set($totalEl, total); 
+    set($completedEl, completed); 
+    set($pendingEl, pending); 
+    set($spentEl, formatted); 
+    set($spentCurEl, currency || 'USD'); 
+  })().catch(console.error); 
+})(); 
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
