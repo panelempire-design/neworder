@@ -119,7 +119,11 @@ async def register(payload: RegisterIn, response: Response):
 @api.post("/auth/login")
 async def login(payload: LoginIn, request: Request, response: Response):
     email = payload.email.lower().strip()
-    ip = request.client.host if request.client else "?"
+    # Behind proxies (k8s ingress / Cloudflare) request.client.host is the proxy IP
+    # and varies across requests, breaking the per-(ip,email) lockout counter.
+    # Prefer X-Forwarded-For (first hop) and fall back to direct peer.
+    xff = request.headers.get("x-forwarded-for", "")
+    ip = (xff.split(",")[0].strip() if xff else (request.client.host if request.client else "?"))
     key = f"{ip}:{email}"
 
     # brute force lockout
