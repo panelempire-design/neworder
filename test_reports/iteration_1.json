@@ -1,0 +1,47 @@
+{
+  "summary": "Backend pytest: 25/27 passed (92.6%). Frontend: landing, register/login/logout, dashboard KPIs, wallet deposit, marketplace + IG filter, mobile bottom-nav, admin redirect (non-admin), admin stats/disputes tab all verified working. Escrow E2E (create order, submit credentials, confirm, payout, transactions) verified end-to-end via API. Reviews, chat, dispute, admin refund all working.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "POST /api/auth/login", "issue": "Brute-force lockout never triggers behind ingress. 6 wrong-password attempts in a row all return 401, none return 429. Root cause: login_attempts key uses `f\"{ip}:{email}\"` from `request.client.host`, which is the immediate proxy IP and varies across requests through Cloudflare/Kubernetes ingress, so each attempt is treated as a new identifier and `count` never reaches 5. Fix: derive client IP from X-Forwarded-For / X-Real-IP, or key the counter on email alone (with a small sliding window).", "priority": "HIGH"}
+    ],
+    "minor": [
+      {"endpoint": "OPTIONS /api/* (CORS preflight)", "issue": "Preflight responses are returned by Cloudflare with `access-control-allow-origin: *` and WITHOUT `access-control-allow-credentials: true`. Actual POST/GET responses from FastAPI do include allow-credentials correctly (verified via curl), so credentialed requests function. Strict browsers may still reject preflight; consider explicit @app.options handlers or a Cloudflare worker rule. Low priority — login from browser works in practice."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Navbar mobile bottom-nav", "issue": "Tab links use data-testid prefix `mb-` (e.g. mb-dashboard, mb-marketplace, mb-orders, mb-listings, mb-wallet) but the review request / spec documents them as `m-nav-*` (m-nav-orders, etc.). Naming inconsistency — recommend aligning to documented spec.", "selector": "[data-testid^='mb-']", "priority": "LOW"},
+      {"component": "Console (Radix UI)", "issue": "Sporadic page error: 'destroy is not a function' when navigating between pages. Likely a Radix Popover/Dropdown unmount cleanup edge case. Does not block flows but should be investigated.", "selector": "n/a", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_cybervault.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Fix brute-force lockout: extract client IP from X-Forwarded-For header (e.g. request.headers.get('x-forwarded-for', '').split(',')[0].strip() or 'unknown') or key on email-only with sliding window. Currently lockout NEVER triggers in the preview env.",
+    "Optional: align mobile bottom-nav testids to `m-nav-*` to match spec, or update spec to `mb-*`.",
+    "Optional: add explicit OPTIONS preflight handler so CORS preflight response includes allow-credentials when Cloudflare doesn't strip it."
+  ],
+  "critical_code_review_comments": [
+    "server.py is ~700 lines and growing — consider splitting into routers (auth.py, listings.py, orders.py, admin.py) for maintainability.",
+    "Brute-force IP key is fragile behind proxies (HIGH).",
+    "`@app.on_event('startup'/'shutdown')` are deprecated in FastAPI — migrate to lifespan context manager.",
+    "Listing pause endpoint allows toggling even from `sold`/`removed` states — should only toggle between active and paused.",
+    "Some MongoDB queries (e.g. `db.users.find_one({'id': payload['sub']})` inside get_current_user) don't exclude `_id` in all branches — review for leakage. Public-facing endpoints look OK via `_public_user`."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_cybervault.py",
+    "/app/backend/tests/__init__.py"
+  ],
+  "success_rate": {"backend": "92.6% (25/27)", "frontend": "~95% (all critical flows pass; only testid naming + minor console warning)"},
+  "test_credentials": "Admin: admin@cybervault.io / Admin@12345 | Buyer: buyer@test.com / Test@12345 | Seller: seller@test.com / Test@12345 — all seeded and verified working.",
+  "seed_data_creation": "No seed data created beyond test-only registrations (test_*@test.com, brute_*@test.com, dup_*@test.com, outsider_*@test.com). Some seller demo listings will now show status `sold` after escrow tests; the buyer balance has been topped up multiple times during testing. If clean state is required, run the seed routine again or drop test users.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend test suite is at /app/backend/tests/test_cybervault.py. It depends on the seeded test users + seller demo listings, and is mostly idempotent except that a few seller listings get sold to buyer during the escrow test (one is later refunded and re-activated by the admin refund test). The brute-force test creates unique brute_*@test.com users so it does not lock the real test accounts. Re-running the suite is safe; expect TestHealth::test_cors_preflight and TestAuth::test_wrong_password_then_brute_force to keep failing until backend fixes are applied.",
+  "rca of the issue": "Brute-force RCA: in server.py login(), `ip = request.client.host` returns the immediate TCP peer (CF/k8s proxy), which differs across requests, so the per-(ip,email) attempt counter never accumulates. Reproduction: POST /api/auth/login with a registered email and a wrong password 6 times — all return 401 instead of 429 on the 6th. Mitigation: use `request.headers.get('x-forwarded-for', request.client.host).split(',')[0].strip()` or key the counter on `email` alone."
+}

@@ -1,0 +1,25 @@
+{
+  "appId": "io.cybervault.app",
+  "appName": "CyberVault",
+  "webDir": "build",
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "https",
+    "cleartext": false
+  },
+  "android": {
+    "backgroundColor": "#050508"
+  },
+  "ios": {
+    "backgroundColor": "#050508"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "backgroundColor": "#050508",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
+    }
+  }
+}
